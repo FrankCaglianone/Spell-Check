@@ -8,15 +8,14 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <set>
 
 
 using namespace std;
 
-vector<string> Dictionary;
+set<string> Dictionary;
 vector<string> Output;
 bool found = false;
-
-
 
 
 void get_dictionary(string dict) {
@@ -27,7 +26,7 @@ void get_dictionary(string dict) {
     }
     string word;
     while(dicptr >> word) {
-        Dictionary.push_back(word);
+        Dictionary.insert(word);
     }
 }
 
@@ -41,23 +40,6 @@ void write_out(string outfile) {
     fp.close();
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 void checker(string input) {
     ifstream inptr(input);
     if(!inptr) {
@@ -69,7 +51,7 @@ void checker(string input) {
     
     while(inptr >> word) {
         for(auto x : Dictionary) {
-            if (x == word) {
+            if (x.compare(word) == 0) {   // x == word
                 found = true;
             }
         }
@@ -86,7 +68,7 @@ void checker_cin() {
     
     while(cin >> word) {
         for(auto x : Dictionary) {
-            if (x == word) {
+            if (x.compare(word) == 0) {    // x == word
                 found = true;
             }
         }
@@ -98,21 +80,6 @@ void checker_cin() {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 int main(int argc, const char * argv[]) {
     
     string input, output, dictionary;
@@ -121,7 +88,6 @@ int main(int argc, const char * argv[]) {
         string str = argv[i];
         
         if(str.find("in=") != string::npos) {
-            // cout << "used in" << endl;
             input = str.substr(3);
         }
         
@@ -133,22 +99,15 @@ int main(int argc, const char * argv[]) {
             dictionary = str.substr(5);
         }
     }
-    
-    
-//    if (dictionary.empty()) {
-//        ifstream dictptr("/usr/share/dict/words");
-//    } else {
-//        ifstream dictptr(dictionary);
-//    }
         
-    dictionary = "dict.txt";
+    
     // Get dictionary
     if(dictionary.empty()) {
         dictionary = "/usr/share/dict/words";
     }
     get_dictionary(dictionary);
 
-    input = "in.txt";
+    
     // Get input and check
     if(input.empty()) {
         cout << "Input:" << endl;
