@@ -14,3 +14,6 @@ the program must write to the standard output.
 The dictionary file contains exactly one word per line, and is sorted in lexicographical order. The program must be efficient in terms of execution time, as well as in memory usage. It must also correctly deallocate all the memory it allocates, close all the files it opens, and correctly deal with all error conditions. 
 
 Design hints: read the whole dictionary directly into memory and use a simple linear index (an array) for the words. Since the input file is already sorted, this would allow a simple and efficient binary search for the dictionary search.
+
+## License
+[MIT License](LICENSE)
